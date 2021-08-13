@@ -60,9 +60,43 @@
         </nav>
     </div>
     <div>
-        <h1>Shopme Control Panel</h1>
+        <h2>사용자 관리</h2>
+        <a th:href="@{/users/new}">새 사용자 생성</a>
+    </div>
+    <div th:if="${message != null}" class="alert alert-success text-center" th:text="${message}">
     </div>
     <div>
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="thead-dark">
+            <tr>
+                <th>사용자 ID</th>
+                <th>사진</th>
+                <th>이메일</th>
+                <th>이름</th>
+                <th>성</th>
+                <th>역할</th>
+                <th>활성화됨</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user:${users}" th:object="${user}">
+                <td th:text="*{id}"></td>
+                <td></td>
+                <td th:text="*{email}"></td>
+                <td th:text="*{lastName}"></td>
+                <td th:text="*{firstName}"></td>
+                <td th:text="*{roles}"></td>
+                <td th:text="*{enabled}"></td>
+                <td>
+                    Edit &nbsp; Delete
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center">
         <p>Shopme Control Panel - Copyright &copy; Shopme</p>
     </div>
 </div>

@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ShopmeWebProject/ShopmeBackend/ShopmeBackend.iml" filepath="$PROJECT_DIR$/ShopmeWebProject/ShopmeBackend/ShopmeBackend.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShopmeCommon/ShopmeCommon.iml" filepath="$PROJECT_DIR$/ShopmeCommon/ShopmeCommon.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ShopmeWebProject/ShopmeSite/ShopmeFrontend.iml" filepath="$PROJECT_DIR$/ShopmeWebProject/ShopmeSite/ShopmeFrontend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShopmeWebProject/ShopmeFrontend/ShopmeFrontend.iml" filepath="$PROJECT_DIR$/ShopmeWebProject/ShopmeFrontend/ShopmeFrontend.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShopmeProject.iml" filepath="$PROJECT_DIR$/ShopmeProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShopmeWebProject/ShopmeWebProject.iml" filepath="$PROJECT_DIR$/ShopmeWebProject/ShopmeWebProject.iml" />
     </modules>
