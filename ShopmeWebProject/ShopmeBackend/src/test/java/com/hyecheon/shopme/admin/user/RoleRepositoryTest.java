@@ -25,7 +25,7 @@ class RoleRepositoryTest {
     void test_1() {
         final var role = Role.builder()
                 .name("Admin")
-                .description("manage everything")
+                .description("모든 것을 관리")
                 .build();
         final var savedRole = roleRepository.save(role);
         assertThat(savedRole.getId()).isNotNull();
@@ -37,22 +37,22 @@ class RoleRepositoryTest {
 
         final var salesperson = Role.builder()
                 .name("Salesperson")
-                .description("manage product price, customers, shopping, orders and sales report")
+                .description("제품 가격, 고객, 쇼핑, 주문 및 판매 보고서 관리")
                 .build();
 
         final var roleEditor = Role.builder()
                 .name("Editor")
-                .description("manage categories, brands, products, articles and menus")
+                .description("카테고리, 브랜드, 제품, 기사 및 메뉴 관리")
                 .build();
 
         final var roleShipper = Role.builder()
                 .name("Shipper")
-                .description("view products, view orders and update order status")
+                .description("제품 보기, 주문 보기 및 주문 상태 업데이트")
                 .build();
 
         final var roleAssistant = Role.builder()
                 .name("Assistant")
-                .description("manage questions and reviews")
+                .description("질문 및 리뷰 관리")
                 .build();
 
         final var roles = roleRepository.saveAll(List.of(salesperson, roleEditor, roleShipper, roleShipper, roleAssistant));

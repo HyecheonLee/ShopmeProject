@@ -3,22 +3,17 @@ package com.hyecheon.shopme.admin.user;
 import com.hyecheon.shopmecommon.entity.Role;
 import com.hyecheon.shopmecommon.entity.User;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * User: hyecheon lee
@@ -149,7 +144,30 @@ class UserRepositoryTest {
         assertThat(users2).isNotIn(user1);
     }
 
-    private void saveUser() {
+    @DisplayName("8. findByEmail 테스트")
+    @Test
+    void test_8() {
+        final var users = saveUser();
+        final var user = users.get(0);
+        final var findUser = userRepository.findByEmail(user.getEmail());
+        assertThat(findUser).isPresent();
+    }
+
+    @DisplayName("9. findByEmail 없는 유저 테스트")
+    @Test
+    void test_9() {
+        final var findUser = userRepository.findByEmail("test@test.com");
+        assertThat(findUser).isEmpty();
+    }
+
+    @DisplayName("10. existsByEmail 테스트 ")
+    @Test
+    void test_10() {
+        final var exists = userRepository.existsByEmail("test@test.com");
+        assertThat(exists).isFalse();
+    }
+
+    private List<User> saveUser() {
         final var user1 = User.builder()
                 .email("ravi@gmail.com")
                 .password("ravi2020")
@@ -163,7 +181,7 @@ class UserRepositoryTest {
                 .firstName("lee")
                 .lastName("hyecheon")
                 .build();
-        userRepository.saveAll(List.of(user1, user2));
+        return userRepository.saveAll(List.of(user1, user2));
     }
 
     private void saveRole() {

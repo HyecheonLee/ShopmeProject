@@ -62,7 +62,8 @@
     <div>
         <h2>사용자 관리 | 새 사용자 생성</h2>
     </div>
-    <form th:action="@{/users/save}" th:object="${user}" method="post" style="max-width: 700px;margin: 0 auto">
+    <form th:action="@{/users/save}" th:object="${user}" method="post" style="max-width: 700px;margin: 0 auto"
+          onsubmit="return checkEmailUnique(this)">
         <div class="border border-secondary rounded p-3">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">이메일</label>
@@ -117,7 +118,22 @@
             </div>
         </div>
     </form>
-
+    <div class="modal fade text-center" id="modalDialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalTitle">Warning</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <span id="modalBody"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="text-center">
         <p>Shopme Control Panel - Copyright &copy; Shopme</p>
     </div>
@@ -127,7 +143,37 @@
         $("#buttonCancel").on('click', function () {
             window.location = /*[[@{/users}]]*/"";
         });
-    })
+    });
+
+    function checkEmailUnique(form) {
+        try {
+            const url = /*[[@{/users/check_email}]]*/"";
+            const userEmail = $("#email").val();
+            const csrf = $("input[name='_csrf']").val();
+            const params = {email: userEmail, _csrf: csrf};
+            $.post(url, params, (resp) => {
+                if (resp === "OK") {
+                    form.submit();
+                } else if (resp === "Duplicated") {
+                    showModalDialog("Warning", `이메일이 ${userEmail}인 다른 사용자가 있습니다.`)
+                } else {
+                    showModalDialog("Error", `서버에서 알 수 없는 응답`);
+                }
+            }).fail(() => {
+                showModalDialog("Error", `서버에서 알 수 없는 응답`);
+            });
+            return false;
+        } catch (e) {
+            showModalDialog("Error", `서버에서 알 수 없는 응답`);
+            return false;
+        }
+    }
+
+    function showModalDialog(title, message) {
+        $("#modalTitle").text(title);
+        $("#modalBody").text(message);
+        $("#modalDialog").modal();
+    }
 </script>
 </body>
 </html>

@@ -42,4 +42,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
     }
 
+    public boolean isExistsEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }
